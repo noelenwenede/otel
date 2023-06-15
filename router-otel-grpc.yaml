@@ -1,0 +1,24 @@
+supergraph:
+  # The socket address and port to listen on
+  listen: '0.0.0.0:${env.PORT:-4000}'
+  introspection: '${env.SANDBOX:-true}'
+
+sandbox:
+  enabled: '${env.SANDBOX:-true}'
+
+homepage:
+  enabled: false
+
+include_subgraph_errors:
+  all: '${env.SANDBOX:-true}'
+
+telemetry:
+  tracing:
+    trace_config:
+      service_name: 'supergraph-grpc'
+    experimental_response_trace_id:
+      enabled: true
+      header_name: 'trace-id'
+    otlp:
+      endpoint: ${env.OTEL_EXPORTER_OTLP_ENDPOINT:-otel-collector:4317}
+      protocol: grpc

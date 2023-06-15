@@ -1,0 +1,24 @@
+supergraph:
+  # The socket address and port to listen on
+  listen: '0.0.0.0:${env.PORT:-4001}'
+  introspection: '${env.SANDBOX:-true}'
+
+sandbox:
+  enabled: '${env.SANDBOX:-true}'
+
+homepage:
+  enabled: false
+
+include_subgraph_errors:
+  all: '${env.SANDBOX:-true}'
+
+telemetry:
+  tracing:
+    trace_config:
+      service_name: 'supergraph-http'
+    experimental_response_trace_id:
+      enabled: true
+      header_name: 'trace-id'
+    otlp:
+      endpoint: ${env.OTEL_COLLECTOR_ENDPOINT:-http://otel-collector:4318/v1/traces}
+      protocol: http
